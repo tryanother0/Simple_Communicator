@@ -55,7 +55,7 @@ def create_database(database_name):
         cursor.close()
         cnx.close()
 
-def create_table_users(table_name):
+def create_table_users(table_name,database_name):
     """
     Creates a user table in the specified PostgreSQL database.
 
@@ -75,7 +75,7 @@ def create_table_users(table_name):
     - hashed_password (varchar(80)): The hashed password of the user.
     """
     try:
-        cnx = connect(user=USER, password=PASSWORD, host=HOST)
+        cnx = connect(user=USER, password=PASSWORD, host=HOST, database=database_name)
         cnx.autocommit = True
         cursor = cnx.cursor()
         query = f"""
@@ -96,7 +96,7 @@ def create_table_users(table_name):
         cursor.close()
         cnx.close()
 
-def create_table_messages(table_name):
+def create_table_messages(table_name,database_name):
     """
     Creates a messages table in the specified PostgreSQL database.
 
@@ -118,7 +118,7 @@ def create_table_messages(table_name):
     - text (varchar(255)): The text of the message.
     """
     try:
-        cnx = connect(user=USER, password=PASSWORD, host=HOST)
+        cnx = connect(user=USER, password=PASSWORD, host=HOST, database=database_name)
         cnx.autocommit = True
         cursor = cnx.cursor()
         query = f"""
@@ -141,8 +141,8 @@ def create_table_messages(table_name):
         cursor.close()
         cnx.close()
 
-create_database("testowa")
-create_table_users("users")
-create_table_messages("messages")
+create_database("simple_communicator")
+create_table_users("users","simple_communicator")
+create_table_messages("messages","simple_communicator")
 
 
